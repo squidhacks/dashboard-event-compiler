@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Secrets and OAuth tokens — never commit these
+dashboard/secrets.json
+dashboard/token.json
+
+# Runtime output
+*.log
+logs/
+dashboard/server.log.1
+
+# Live findings file (regenerated on every run); sample-findings.json is committed
+event-compiler/western_club_findings.json
+event-compiler/western_club_findings.backup-*.json
+
+# Local agent settings
+.claude/settings.local.json
+.claude/scheduled_tasks.lock
+
+# OS
+Thumbs.db
+.DS_Store

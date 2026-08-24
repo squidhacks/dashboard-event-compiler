@@ -1,0 +1,15 @@
+{
+  "name": "personal-dashboard",
+  "version": "1.0.0",
+  "description": "Personal web dashboard with live weather, calendar, email, news, and markets",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "googleapis": "^144.0.0",
+    "rss-parser": "^3.13.0"
+  }
+}

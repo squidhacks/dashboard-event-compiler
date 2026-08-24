@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>"
+    />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1 id="greeting">Dashboard</h1>
+        <div class="clock" id="clock"></div>
+      </div>
+      <div class="topbar-right">
+        <div class="date" id="date"></div>
+        <button id="refreshAll" class="ghost-btn" title="Refresh everything">↻</button>
+      </div>
+    </header>
+
+    <main class="grid">
+      <!-- Western Club Digest -->
+      <section class="card hero" id="westernCard">
+        <div class="card-head">
+          <h2>🎓 Western Club Digest</h2>
+          <span class="stamp" data-stamp="western"></span>
+        </div>
+        <div class="card-body" id="western"><div class="loading">Loading…</div></div>
+      </section>
+
+      <!-- Weather -->
+      <section class="card" id="weatherCard">
+        <div class="card-head"><h2>Weather</h2><span class="stamp" data-stamp="weather"></span></div>
+        <div class="card-body" id="weather"><div class="loading">Loading…</div></div>
+      </section>
+
+      <!-- Agenda -->
+      <section class="card" id="agendaCard">
+        <div class="card-head"><h2>Agenda</h2><span class="stamp" data-stamp="calendar"></span></div>
+        <div class="card-body" id="agenda"><div class="loading">Loading…</div></div>
+      </section>
+
+      <!-- Email -->
+      <section class="card" id="emailCard">
+        <div class="card-head"><h2>Unread email</h2><span class="stamp" data-stamp="gmail"></span></div>
+        <div class="card-body" id="email"><div class="loading">Loading…</div></div>
+      </section>
+
+      <!-- Markets -->
+      <section class="card" id="marketsCard">
+        <div class="card-head"><h2>Markets</h2><span class="stamp" data-stamp="markets"></span></div>
+        <div class="card-body" id="markets"><div class="loading">Loading…</div></div>
+      </section>
+
+      <!-- Headlines -->
+      <section class="card wide" id="headlinesCard">
+        <div class="card-head"><h2>Headlines</h2><span class="stamp" data-stamp="headlines"></span></div>
+        <div class="card-body" id="headlines"><div class="loading">Loading…</div></div>
+      </section>
+
+      <!-- Dev feeds -->
+      <section class="card wide" id="devCard">
+        <div class="card-head"><h2>Dev &amp; open source</h2><span class="stamp" data-stamp="dev"></span></div>
+        <div class="card-body" id="dev"><div class="loading">Loading…</div></div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

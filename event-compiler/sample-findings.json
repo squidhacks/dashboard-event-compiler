@@ -1,0 +1,235 @@
+{
+  "meta": {
+    "title": "Western Event & Club Digest",
+    "student_profile": "Example student profile — set this to whoever the digest is for",
+    "as_of": "2026-08-23",
+    "generated": "2026-08-23",
+    "run_type": "scheduled",
+    "lane_a_status": "read",
+    "lane_a_handles_read": [
+      "@pbsnuwo",
+      "@westerncapitalmarkets",
+      "@westerninvestmentclub",
+      "@westernrealestateclub"
+    ],
+    "lane_b_sources_checked": [
+      "oweek.ca",
+      "westernusc.ca/clubsweek",
+      "career.uwo.ca/take_action/events_workshops",
+      "uwo.ca/campusrec/intramurals"
+    ],
+    "timezone": "America/Toronto (ET)",
+    "notes": [
+      "Dates/times transcribed from club Instagram post graphics and captions as of 2026-08-23.",
+      "Stories are ephemeral and were not captured; only grid posts and captions were read."
+    ]
+  },
+  "for_you": "One-to-two sentence orientation callout, written fresh each run.",
+  "changes_since_last_run": {
+    "previous_run": "2026-08-09",
+    "nothing_changed": false,
+    "new_events": [
+      {
+        "date": "2026-08-26",
+        "club": "PBSN",
+        "title": "Resume Roast (virtual) — applications close Aug 24 11:59 pm",
+        "source": "instagram"
+      },
+      {
+        "date": "2026-09-06",
+        "club": "Mustangs",
+        "title": "Football vs York Lions (home opener, 7:00 PM)",
+        "source": "westernmustangs.ca"
+      }
+    ],
+    "changed_events": [
+      {
+        "title": "PBSN Resume Roast",
+        "was": "2026-08-25, format and deadline unstated (read off the PBSN Summer Series roadmap graphic)",
+        "now": "2026-08-26, 7:00-8:00 PM ET, held VIRTUALLY, with an application deadline of Mon Aug 24 11:59 pm via link in bio"
+      }
+    ],
+    "now_passed": [
+      "W5 Summer Workshop 01: Networking & Navigating Clubs (2026-08-12)",
+      "WFN Summer Dinner registration deadline (2026-08-12)"
+    ],
+    "newly_confirmed": [
+      "O-Week 2026 confirmed as Sept 7-12 (oweek.ca official + @westernusc_events ceremony posts)",
+      "USC Clubs Week 2026 confirmed as Sept 14-18 in the UCC"
+    ]
+  },
+  "anchor_dates": {
+    "o_week": {
+      "status": "confirmed",
+      "official_source": "oweek.ca — 'Monday, September 7, 2026 through Saturday, September 12, 2026'",
+      "dates": "2026-09-07 to 2026-09-12",
+      "opening_ceremonies": "2026-09-07 — Johnny Orlando (@westernusc_events)",
+      "closing_ceremonies": "2026-09-11 — The Chainsmokers (@westernusc_events)",
+      "reference_prior_year": "Aug 30 - Sept 6, 2025",
+      "search_suggested": null,
+      "contact": "orientation@uwo.ca",
+      "note": "O-Week overlaps the first week of classes — Labour Day is Sept 7 and Term 1 classes begin Sept 8."
+    },
+    "usc_clubs_week": {
+      "status": "confirmed",
+      "official_source": "@clubsusc Instagram post dated 2026-08-14 — 'have a booth at clubs week! SEPTEMBER 14TH - 18TH'",
+      "dates": "2026-09-14 to 2026-09-18",
+      "registration_link_drops": "2026-08-13 (delivered; club-facing registration post went live 2026-08-14)",
+      "club_booth_registration_deadline": "2026-09-01 — applies to USC-ratified CLUBS booking a booth, NOT to students attending",
+      "reference_prior_year": "Sept 15-19, 2025",
+      "search_suggested": null,
+      "location": "UCC Building + online via club-spotlight.ca; 220+ clubs",
+      "contact": "clubs@westernusc.ca",
+      "note": "Single best entry point for a first-year. Falls in the week right after O-Week and the week Term 1 classes settle. Visit booths, grab QR codes, join mailing lists."
+    }
+  },
+  "upcoming_events": [
+    {
+      "date": "2026-08-24",
+      "time": "23:59 ET",
+      "club": "PBSN",
+      "handle": "@pbsnuwo",
+      "title": "DEADLINE — Resume Roast application closes",
+      "category": "recruitment",
+      "detail": "Apply by Monday, August 24, 11:59 pm through the link in the PBSN bio to get a 1-on-1 slot at the Aug 26 event.",
+      "signup": "link in bio (linktr.ee/pbsnuwo)",
+      "source": "instagram",
+      "eligibility": "open to all Western — pitched at incoming first-year students",
+      "confirmed": true
+    },
+    {
+      "date": "2026-08-26",
+      "time": "19:00-20:00 ET",
+      "club": "PBSN",
+      "handle": "@pbsnuwo",
+      "title": "Resume Roast (final Summer Series event)",
+      "category": "career",
+      "location": "Virtual",
+      "detail": "Short workshop on resume best practices, then 1-on-1 feedback rounds with HBA1 mentors who help polish your draft. Framed as prep 'before director hiring and recruiting season kicks off'.",
+      "signup": "Apply by Aug 24 11:59 pm, link in bio",
+      "source": "instagram",
+      "eligibility": "open to all Western",
+      "confirmed": true
+    },
+    {
+      "date": "2026-09-06",
+      "time": "19:00 ET",
+      "club": "Mustangs",
+      "title": "Football — Western vs York Lions (home opener)",
+      "category": "athletics",
+      "location": "Western Alumni Stadium",
+      "source": "westernmustangs.ca",
+      "eligibility": "open to all Western",
+      "confirmed": true
+    }
+  ],
+  "recently_passed_events": [
+    {
+      "date": "2026-08-21",
+      "time": "17:45-20:00 ET",
+      "club": "PBSN",
+      "handle": "@pbsnuwo",
+      "title": "Summer Dinner @ Tangerine",
+      "location": "Tangerine Office, King Street, Toronto",
+      "detail": "Business casual. Networking with senior Tangerine executives, the PBSN team, and fellow incoming first-year students. Registration closed Aug 18.",
+      "source": "instagram",
+      "signal": "PBSN is running corporate-partnered programming aimed explicitly at incoming first-years — the strongest first-year on-ramp in the registry."
+    }
+  ],
+  "deadlines": [
+    {
+      "date": "2026-08-24",
+      "what": "PBSN Resume Roast application (11:59 pm, link in bio)",
+      "org": "PBSN",
+      "source": "instagram",
+      "confirmed": true
+    },
+    {
+      "date": "2026-09-01",
+      "what": "Clubs Week booth registration — CLUB-side only, not student-facing",
+      "org": "USC Clubs",
+      "source": "instagram",
+      "confirmed": true
+    }
+  ],
+  "recruitment_signals": [
+    {
+      "club": "PBSN",
+      "signal": "Summer Series wrapped Aug 26 with Resume Roast. Post copy names 'director hiring and recruiting season' as the next beat — expect the fall first-year/director application in early-to-mid September."
+    },
+    {
+      "club": "IPC",
+      "signal": "Ran an analyst Hiring Info Session on Aug 19 covering the recruitment timeline and case study. The 2026-27 Analyst application is imminent. Flagship 'looks closed, isn't' club — open to all Western students."
+    }
+  ],
+  "clubs": [
+    {
+      "short": "PBSN",
+      "name": "Pre-Business Students' Network",
+      "tier": 1,
+      "category": "Pre-business umbrella (many AEOs) — TOP PICK",
+      "instagram": "@pbsnuwo",
+      "website": "pbsn.ca",
+      "ig_stats": "549 posts, 3,929 followers",
+      "profile": "Western's largest business club. Runs first-year programming, speed chats, resume events and a summer-to-fall series.",
+      "first_year_entry": "Summer Series → Clubs Week booth → September first-year/director applications",
+      "eligibility": "open to all Western",
+      "typical_recruitment": "Early-to-mid September",
+      "user_follows": true
+    },
+    {
+      "short": "WCM",
+      "name": "Western Capital Markets",
+      "tier": 1,
+      "category": "Finance / capital markets — largest finance club (380+)",
+      "instagram": "@westerncapitalmarkets",
+      "website": "westerncapitalmarkets.com",
+      "ig_stats": "124 posts, 3,108 followers",
+      "profile": "Peer mentorship program, educational series (17+ sessions/yr at Ivey), Toronto/NYC/West Coast recruiting panels and firm trips.",
+      "first_year_entry": "Peer mentorship program; attend educationals (open sessions at Ivey)",
+      "eligibility": "open to all Western",
+      "typical_recruitment": "Fall",
+      "user_follows": false
+    }
+  ],
+  "accounts_monitored": {
+    "finance_capital_markets": [
+      "@westerncapitalmarkets",
+      "@westerninvestmentclub",
+      "@westernrealestateclub"
+    ],
+    "consulting": [
+      "@wmcconsulting",
+      "@180dcwestern"
+    ],
+    "not_yet_followed_by_user": [
+      "@westerncapitalmarkets",
+      "@westerninvestmentclub"
+    ]
+  },
+  "web_sources_monitored": [
+    {
+      "name": "O-Week",
+      "url": "oweek.ca",
+      "unique_value": "Official O-Week schedule — confirmed Sept 7-12 this run",
+      "last_checked": "2026-08-23"
+    },
+    {
+      "name": "USC Clubs Week",
+      "url": "westernusc.ca/clubsweek",
+      "unique_value": "Clubs Week logistics — still evergreen; IG beat it to the dates",
+      "last_checked": "2026-08-23"
+    },
+    {
+      "name": "Career Education — Events & Workshops",
+      "url": "career.uwo.ca/take_action/events_workshops",
+      "unique_value": "Career prep workshops — 'returning Fall 2026', no dates yet; now points to Western Connect",
+      "last_checked": "2026-08-23"
+    }
+  ],
+  "action_checklist": [
+    "TODAY/TOMORROW — Apply for the PBSN Resume Roast by Mon Aug 24, 11:59 pm via the link in @pbsnuwo's bio. Event is Wed Aug 26, 7-8 pm, virtual, 1-on-1 feedback with HBA1 mentors.",
+    "Follow @iveyprivatecapital now — its Analyst application is imminent (info session was Aug 19) and it is open to all Western students. This is the highest-value gap in your follow list.",
+    "Follow @dmsawestern — it is your own faculty council for years 1-2 and you are not following it."
+  ]
+}

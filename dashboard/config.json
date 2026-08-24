@@ -1,0 +1,40 @@
+{
+  "port": 3000,
+  "westernFindingsPath": "../event-compiler/western_club_findings.json",
+  "weather": {
+    "fallbackLatitude": 43.65,
+    "fallbackLongitude": -79.38,
+    "fallbackLabel": "Toronto"
+  },
+  "tickers": ["AAPL", "MSFT", "GOOGL", "NVDA", "SPY"],
+  "emailHighlight": {
+    "searchDays": 90,
+    "maxPriority": 8,
+    "groups": {
+      "Western": ["western", "uwo", "usc", "mustangs", "clubs week", "o-week", "oweek", "orientation", "soph", "residence"],
+      "Ivey": ["ivey", "aeo", "hba", "bmos", "dan management"],
+      "Internship": ["internship", "intern", "co-op", "recruiting", "recruitment", "analyst", "resume", "interview", "application deadline", "apply now", "job offer", "summer position"],
+      "Clubs": ["pbsn", "wmc", "180dc", "aleph", "w5", "wfn", "ivcc", "iibc", "clubs week", "student club", "club exec", "case competition", "networking", "info session", "coffee chat", "speed chat"]
+    }
+  },
+  "crypto": [],
+  "feeds": {
+    "headlines": [
+      { "name": "BBC World", "url": "https://feeds.bbci.co.uk/news/world/rss.xml" },
+      { "name": "NPR News", "url": "https://feeds.npr.org/1001/rss.xml" },
+      { "name": "The Verge", "url": "https://www.theverge.com/rss/index.xml" }
+    ],
+    "dev": [
+      { "name": "Hacker News", "url": "https://hnrss.org/frontpage" },
+      { "name": "Lobsters", "url": "https://lobste.rs/rss" }
+    ]
+  },
+  "refreshSeconds": {
+    "weather": 900,
+    "calendar": 300,
+    "gmail": 180,
+    "news": 900,
+    "markets": 120,
+    "western": 3600
+  }
+}
