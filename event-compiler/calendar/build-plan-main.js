@@ -55,10 +55,34 @@ function registryTierOf(org) {
   return tierByOrg.get(org);
 }
 
-function excludedByTier(org) {
+// Categories that are browse-only: you read them, you do not act on them.
+// Varsity fixtures, the academic calendar, and employer info sessions are the
+// three that dominate the calendar by volume, and they are the reason it filled
+// up -- 60 of 90 rows on 2026-09-12.
+const BROWSE_ONLY_CATS = new Set(["athletics", "academic", "career"]);
+
+// The single decision for whether a row reaches the calendar. Returns a reason
+// string when the row is excluded, or null when it is written.
+//
+// Order matters. The watchlist tier is checked FIRST, so a tier 1-2 club keeps
+// its events even when they fall in a browse-only category -- those clubs are
+// the point of the tool, and a tier-1 club's info session is not the same thing
+// as a bank's.
+function excludedFromPush(r) {
+  const org = r.summary.split(" - ")[0];
   const t = registryTierOf(org);
-  if (t === undefined) return false;
-  return !ALLOWED_REGISTRY_TIERS.has(t);
+
+  if (t !== undefined) {
+    return ALLOWED_REGISTRY_TIERS.has(t) ? null : `registry tier ${t}`;
+  }
+
+  // Untiered: Lane B / official sources, which carry no tier. Keep anything
+  // with a hard date to act on -- a deadline or an application opening --
+  // regardless of category. A withdrawal deadline is academic, but missing it
+  // costs real money, so it is not browse-only.
+  if (r.kind === "deadline" || r.kind === "open") return null;
+  if (BROWSE_ONLY_CATS.has(r.category)) return `browse-only (${r.category})`;
+  return null;
 }
 
 const rows = [];
@@ -189,11 +213,12 @@ const kept = rows.filter((r) => !r.SKIP);
 // rather than being dropped on the floor -- phase 3 writes `rows` only, so
 // anything here is inert, but it stays auditable in the log.
 const excluded_by_tier = kept
-  .filter((r) => excludedByTier(r.summary.split(" - ")[0]))
-  .map((r) => ({ ...r, excluded_registry_tier: registryTierOf(r.summary.split(" - ")[0]) }));
+  .map((r) => ({ r, reason: excludedFromPush(r) }))
+  .filter((x) => x.reason)
+  .map(({ r, reason }) => ({ ...r, excluded_reason: reason }));
 
 const writable = kept
-  .filter((r) => !excludedByTier(r.summary.split(" - ")[0]))
+  .filter((r) => !excludedFromPush(r))
   .sort((a, b) => a.start.localeCompare(b.start));
 const flagged = rows.filter((r) => r.SKIP);
 
@@ -220,7 +245,9 @@ fs.writeFileSync(
 );
 console.log("rows:", writable.length, "| flagged (never written):", flagged.length);
 console.log("tier A:", writable.filter((r) => r.tier === "A").length, "tier B:", writable.filter((r) => r.tier === "B").length);
-console.log(
-  "excluded by registry tier (never written):", excluded_by_tier.length,
-  excluded_by_tier.length ? "-> " + [...new Set(excluded_by_tier.map((r) => r.summary.split(" - ")[0] + " (T" + r.excluded_registry_tier + ")"))].join(", ") : ""
-);
+const byReason = {};
+for (const r of excluded_by_tier) byReason[r.excluded_reason] = (byReason[r.excluded_reason] || 0) + 1;
+console.log("excluded from push (never written):", excluded_by_tier.length);
+for (const [reason, n] of Object.entries(byReason).sort((a, b) => b[1] - a[1])) {
+  console.log("   " + n + "  " + reason);
+}
