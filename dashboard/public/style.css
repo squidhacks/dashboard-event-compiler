@@ -452,6 +452,48 @@ body {
 }
 
 /* Western Club Digest */
+.run-health {
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  border-left: 3px solid;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+/* A healthy run. Deliberately quieter than warn/bad: it carries the cost and
+   counts for a run that is fine, so it should read as a status line rather than
+   compete with the alerts above it. */
+.run-health.ok {
+  border-left-color: var(--up, #57ab5a);
+  background: color-mix(in srgb, #57ab5a 8%, transparent);
+}
+.run-health.ok .run-health-meta {
+  margin-top: 0;
+  opacity: 0.8;
+}
+.run-health.warn {
+  border-left-color: #d98324;
+  background: color-mix(in srgb, #d98324 12%, transparent);
+}
+.run-health.bad {
+  border-left-color: var(--down, #e5534b);
+  background: color-mix(in srgb, #e5534b 14%, transparent);
+}
+.run-health-title {
+  font-weight: 650;
+  color: var(--text);
+}
+.run-health-note {
+  color: var(--text);
+  opacity: 0.9;
+  margin-top: 2px;
+}
+.run-health-meta {
+  margin-top: 5px;
+  font-size: 0.78rem;
+  opacity: 0.7;
+}
+
 .digest-callout {
   font-size: 0.88rem;
   line-height: 1.5;

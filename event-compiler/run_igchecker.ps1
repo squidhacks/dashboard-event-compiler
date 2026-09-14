@@ -299,6 +299,9 @@ try {
 
 # ============================================================ PHASE 3: sync ==
 $calCreated = 0; $calUpdated = 0; $calSkipped = 0; $syncRan = $false
+# Phase 3 spends money too. It used to be logged and then dropped, so the cost
+# recorded for a run was only the sweep and always understated the real total.
+$syncCost = 0.0
 
 # Never sync from a run whose data is untrustworthy. A both-lanes failure or a
 # crashed sweep means the findings are stale or partial, and writing a calendar
@@ -349,6 +352,7 @@ do not ask for approval, just apply the plan and report counts.
             if ($sp.result -match 'created[^0-9]{0,12}(\d+)')  { $calCreated = [int]$Matches[1] }
             if ($sp.result -match 'updated[^0-9]{0,12}(\d+)')  { $calUpdated = [int]$Matches[1] }
             if ($sp.result -match 'skipped[^0-9]{0,12}(\d+)')  { $calSkipped = [int]$Matches[1] }
+            if ($null -ne $sp.total_cost_usd) { $syncCost = [double]$sp.total_cost_usd }
             "" | Write-Log
             "calendar sync cost: `$$($sp.total_cost_usd)" | Write-Log
         } catch {
@@ -379,6 +383,16 @@ $status = [ordered]@{
     lane_b       = [ordered]@{ status = $laneB; sources_checked = $laneBSources; failures = $laneBFailures }
     calendar     = [ordered]@{ synced = $syncRan; planned = $planRows; created = $calCreated; updated = $calUpdated; skipped = $calSkipped; flagged = $planFlagged }
     usage        = $sweepUsage
+    # What the run actually cost, both phases. usage.cost_usd is the sweep only;
+    # reading that alone as "the run cost" understates it by the sync phase.
+    # model is recorded so a cost is interpretable later -- $8 means something
+    # very different on Sonnet than on Opus.
+    cost         = [ordered]@{
+        model     = $Model
+        sweep_usd = if ($sweepUsage) { $sweepUsage.cost_usd } else { $null }
+        sync_usd  = $syncCost
+        total_usd = [math]::Round((&{ if ($sweepUsage -and $null -ne $sweepUsage.cost_usd) { [double]$sweepUsage.cost_usd } else { 0.0 } }) + $syncCost, 4)
+    }
     backup       = $backupNote
     log          = Split-Path $logFile -Leaf
 }
