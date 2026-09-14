@@ -291,10 +291,91 @@ function dateBadge(str, date) {
   return `<div class="m">${mon}</div><div class="d" style="font-size:0.9rem">TBA</div>`;
 }
 
+// A run can fail in three distinguishable ways, and the digest looks perfectly
+// healthy in all of them -- it just quietly goes stale. So say which lane broke.
+// What the last run cost, both phases. Falls back to usage.cost_usd for status
+// files written before `cost` existed, so old runs still show a number rather
+// than a blank. Returns "" when there is genuinely nothing to report.
+function runCostLabel(s) {
+  const c = s.cost || {};
+  const total =
+    typeof c.total_usd === "number"
+      ? c.total_usd
+      : s.usage && typeof s.usage.cost_usd === "number"
+        ? s.usage.cost_usd
+        : null;
+  if (total === null) return "";
+  const model = c.model ? ` ${c.model}` : "";
+  return `$${total.toFixed(2)}${model}`;
+}
+
+function runHealthBanner(s) {
+  if (!s) return "";
+
+  // A healthy run still gets a line, because cost is worth watching when
+  // nothing is wrong -- that is precisely when it quietly creeps up. It renders
+  // in the neutral `ok` style so it reads as information, not as an alert.
+  if (s.outcome === "ok") {
+    const cost = runCostLabel(s);
+    const okWhen = s.last_run ? new Date(s.last_run).toLocaleString() : "unknown";
+    const okHandles = (s.lane_a && s.lane_a.handles_read) || 0;
+    const okSources = (s.lane_b && s.lane_b.sources_checked) || 0;
+    return `<div class="run-health ok">
+      <div class="run-health-meta">
+        Last run ok · ${okHandles} handles · ${okSources} sources · ${esc(okWhen)}${cost ? " · " + esc(cost) : ""}
+      </div>
+    </div>`;
+  }
+
+  const a = (s.lane_a && s.lane_a.status) || "unknown";
+  const b = (s.lane_b && s.lane_b.status) || "unknown";
+  const handles = (s.lane_a && s.lane_a.handles_read) || 0;
+  const sources = (s.lane_b && s.lane_b.sources_checked) || 0;
+
+  const NOTE = {
+    both_failed: ["bad", "Both lanes failed", "Nothing below was refreshed on the last run."],
+    launch_failed: ["bad", "The last run never started", "Nothing below was refreshed."],
+    lane_a_failed: [
+      "warn",
+      "Lane A failed -- no Instagram",
+      "Club events come almost entirely from Instagram, so the club side is stale. Web sources are current.",
+    ],
+    lane_b_failed: [
+      "warn",
+      "Lane B failed -- no web sources",
+      "Career fairs, varsity and academic dates are stale. Instagram is current.",
+    ],
+    partial: ["warn", "Last run was partial", "Some sources were missed."],
+  };
+  const [cls, title, note] = NOTE[s.outcome] || ["warn", `Last run: ${s.outcome}`, ""];
+
+  const detail = (s.lane_a && s.lane_a.detail) || "";
+  const when = s.last_run ? new Date(s.last_run).toLocaleString() : "unknown";
+  const cost = runCostLabel(s);
+
+  return `<div class="run-health ${cls}">
+    <div class="run-health-title">${esc(title)}</div>
+    <div class="run-health-note">${esc(note)}</div>
+    <div class="run-health-meta">
+      Lane A: ${esc(a)} (${handles} handles) · Lane B: ${esc(b)} (${sources} sources) · ${esc(when)}${cost ? " · " + esc(cost) : ""}
+      ${detail ? "<br>" + esc(detail) : ""}
+    </div>
+  </div>`;
+}
+
 async function loadWestern() {
   const el = $("western");
-  const { ok, data } = await getJSON("/api/western");
-  if (!ok) return (el.innerHTML = `<div class="error">Digest unavailable (${esc(data.error || "error")})</div>`);
+  const [{ ok, data }, statusRes] = await Promise.all([
+    getJSON("/api/western"),
+    getJSON("/api/western-status"),
+  ]);
+  const health = runHealthBanner(statusRes.ok ? statusRes.data : null);
+
+  // The banner matters most when the digest itself is missing, so render it even
+  // on the error path -- a failed run is usually why there is nothing to show.
+  if (!ok)
+    return (el.innerHTML =
+      health + `<div class="error">Digest unavailable (${esc(data.error || "error")})</div>`);
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -336,6 +417,7 @@ async function loadWestern() {
     .join("");
 
   el.innerHTML = `
+    ${health}
     ${data.for_you ? `<div class="digest-callout">${esc(data.for_you)}</div>` : ""}
     <div class="digest-cols">
       <div class="digest-col">
