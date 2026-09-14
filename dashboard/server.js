@@ -347,6 +347,38 @@ app.get("/api/western", (req, res) => {
   }
 });
 
+// Health of the last compiler run. Written by run_igchecker.ps1 itself rather
+// than by the agent, so it still appears when a run dies before producing any
+// findings at all -- which is exactly the failure that used to go unnoticed.
+// Lives beside the findings file, so it follows westernFindingsPath.
+app.get("/api/western-status", (req, res) => {
+  const configured = config.westernFindingsPath;
+  if (!configured) return res.status(404).json({ error: "not_configured" });
+  const p = path.join(path.dirname(path.resolve(__dirname, configured)), "run-status.json");
+  let raw;
+  try {
+    raw = fs.readFileSync(p, "utf8");
+  } catch (err) {
+    // Genuinely absent is normal on a fresh checkout, not an error worth a 500.
+    if (err.code === "ENOENT") {
+      return res.json({ outcome: "unknown", detail: "no run-status.json yet" });
+    }
+    return res.json({ outcome: "unknown", detail: `run-status.json unreadable: ${err.message}` });
+  }
+  try {
+    // Strip a leading BOM. The writer is PowerShell, where Set-Content -Encoding
+    // utf8 emits one; readFileSync("utf8") keeps it and JSON.parse rejects it.
+    // The writer no longer adds a BOM, but stale files predate that fix and
+    // anything else writing this file could reintroduce one.
+    res.json(JSON.parse(raw.replace(/^﻿/, "")));
+  } catch (err) {
+    // A file that exists but will not parse is a REAL fault -- say so rather
+    // than reporting it as "no run-status.json yet". That conflation is what
+    // made a healthy run render as "Last run: unknown" with every field empty.
+    res.json({ outcome: "unknown", detail: `run-status.json malformed: ${err.message}` });
+  }
+});
+
 // ---------- Config for frontend ----------
 app.get("/api/config", (req, res) => {
   res.json({

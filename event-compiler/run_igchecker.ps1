@@ -382,7 +382,18 @@ $status = [ordered]@{
     backup       = $backupNote
     log          = Split-Path $logFile -Leaf
 }
-$status | ConvertTo-Json -Depth 6 | Set-Content -Path $StatusFile -Encoding utf8
+# UTF-8 WITHOUT a BOM, the same reason the log writer above avoids Tee-Object:
+# `Set-Content -Encoding utf8` on PS 5.1 always emits a BOM, and the dashboard
+# reads this file with fs.readFileSync(p, "utf8") + JSON.parse, which keeps the
+# BOM and throws on it. Its catch reported that as "no run-status.json yet", so
+# a perfectly good status file rendered as "Last run: unknown".
+# .run-state.json below can keep Set-Content: only PowerShell reads it back, and
+# ConvertFrom-Json tolerates the BOM.
+[System.IO.File]::WriteAllText(
+    $StatusFile,
+    ($status | ConvertTo-Json -Depth 6),
+    (New-Object System.Text.UTF8Encoding $false)
+)
 
 @{ run_count = $runCount } | ConvertTo-Json | Set-Content -Path $StateFile -Encoding utf8
 
